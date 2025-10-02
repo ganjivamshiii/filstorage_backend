@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>File Upload Test</title>
+</head>
+<body>
+  <h2>Upload Test</h2>
+  <input type="file" id="fileInput" multiple />
+  <button onclick="uploadFiles()">Upload</button>
+
+  <pre id="output"></pre>
+
+  <script>
+    async function uploadFiles() {
+      const fileInput = document.getElementById("fileInput");
+      if (!fileInput.files.length) {
+        alert("Please select at least one file");
+        return;
+      }
+
+      const formData = new FormData();
+      for (let f of fileInput.files) {
+        formData.append("files", f); // key must match @RequestParam("files")
+      }
+
+      try {
+        const response = await fetch("http://localhost:8080/files/upload", {
+          method: "POST",
+          body: formData
+        });
+
+        const result = await response.json();
+        document.getElementById("output").textContent =
+          JSON.stringify(result, null, 2);
+      } catch (err) {
+        console.error("Upload failed:", err);
+        document.getElementById("output").textContent = err;
+      }
+    }
+  </script>
+</body>
+</html>
