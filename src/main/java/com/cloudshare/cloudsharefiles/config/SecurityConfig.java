@@ -47,7 +47,8 @@ public UrlBasedCorsConfigurationSource corsConfigurationSource() {
     config.setAllowedOrigins(List.of(
     "http://localhost:5173", // local dev frontend
     "http://ec2-3-110-121-97.ap-south-1.compute.amazonaws.com:5173",
-    "http://filstoragebackend-production.up.railway.app" // your EC2 frontend URL
+    "http://filstoragebackend-production.up.railway.app",
+    "https://use-mee.netlify.app" // your EC2 frontend URL
 ));
 
     config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH"));
